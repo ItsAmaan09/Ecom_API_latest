@@ -1,0 +1,12 @@
+e:\Mohammed Amaan's\Dotnet Projects\WebAPI_Projects\Ecom_api\Ecom_API_latest\Model\bin\Debug\net8.0\Model.deps.json
+e:\Mohammed Amaan's\Dotnet Projects\WebAPI_Projects\Ecom_api\Ecom_API_latest\Model\bin\Debug\net8.0\Model.dll
+e:\Mohammed Amaan's\Dotnet Projects\WebAPI_Projects\Ecom_api\Ecom_API_latest\Model\bin\Debug\net8.0\Model.pdb
+e:\Mohammed Amaan's\Dotnet Projects\WebAPI_Projects\Ecom_api\Ecom_API_latest\Model\obj\Debug\net8.0\Model.GeneratedMSBuildEditorConfig.editorconfig
+e:\Mohammed Amaan's\Dotnet Projects\WebAPI_Projects\Ecom_api\Ecom_API_latest\Model\obj\Debug\net8.0\Model.AssemblyInfoInputs.cache
+e:\Mohammed Amaan's\Dotnet Projects\WebAPI_Projects\Ecom_api\Ecom_API_latest\Model\obj\Debug\net8.0\Model.AssemblyInfo.cs
+e:\Mohammed Amaan's\Dotnet Projects\WebAPI_Projects\Ecom_api\Ecom_API_latest\Model\obj\Debug\net8.0\Model.csproj.CoreCompileInputs.cache
+e:\Mohammed Amaan's\Dotnet Projects\WebAPI_Projects\Ecom_api\Ecom_API_latest\Model\obj\Debug\net8.0\Model.sourcelink.json
+e:\Mohammed Amaan's\Dotnet Projects\WebAPI_Projects\Ecom_api\Ecom_API_latest\Model\obj\Debug\net8.0\Model.dll
+e:\Mohammed Amaan's\Dotnet Projects\WebAPI_Projects\Ecom_api\Ecom_API_latest\Model\obj\Debug\net8.0\refint\Model.dll
+e:\Mohammed Amaan's\Dotnet Projects\WebAPI_Projects\Ecom_api\Ecom_API_latest\Model\obj\Debug\net8.0\Model.pdb
+e:\Mohammed Amaan's\Dotnet Projects\WebAPI_Projects\Ecom_api\Ecom_API_latest\Model\obj\Debug\net8.0\ref\Model.dll
