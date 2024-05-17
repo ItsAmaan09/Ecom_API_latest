@@ -6,10 +6,10 @@ namespace ECommerce.Core
 	[Route("api/[controller]")]
 	public class CustomerController : ControllerBase
 	{
-		private readonly CustomerRepository _customerRepository;
-		public CustomerController(CustomerRepository customerRepository)
+		private readonly CustomerManager _customerManager;
+		public CustomerController(CustomerManager customerManager)
 		{
-			_customerRepository = customerRepository;
+			_customerManager = customerManager;
 		}
 
 		[HttpGet]
@@ -17,7 +17,7 @@ namespace ECommerce.Core
 		{
 			try
 			{
-				var customers = _customerRepository.GetAllCustomers();
+				var customers = _customerManager.GetCustomers();
 				return Ok(customers);
 			}
 			catch (Exception ex)
@@ -30,7 +30,7 @@ namespace ECommerce.Core
 		{
 			try
 			{
-				var customer = _customerRepository.GetCustomerById(id);
+				var customer = _customerManager.GetCustomer(id);
 				if (customer == null)
 				{
 					return NotFound();
@@ -48,7 +48,7 @@ namespace ECommerce.Core
 		{
 			try
 			{
-				var customerId = _customerRepository.AddCustomer(customerDTO);
+				var customerId = _customerManager.AddCustomer(customerDTO);
 				var responseDTO = new CustomerResponseDTO { CustomerId = customerId };
 				return Ok(responseDTO);
 			}
@@ -68,7 +68,7 @@ namespace ECommerce.Core
 				{
 					return BadRequest("Id not found");
 				}
-				_customerRepository.UpdateCustomer(customerDTO);
+				_customerManager.UpdateCustomer(customerDTO);
 				return Ok(true);
 			}
 			catch (Exception ex)
@@ -82,12 +82,12 @@ namespace ECommerce.Core
 		{
 			try
 			{
-				var customer = _customerRepository.GetCustomerById(id);
+				var customer = _customerManager.GetCustomer(id);
 				if (customer == null)
 				{
 					return NotFound();
 				}
-				_customerRepository.DeleteCustomer(id);
+				_customerManager.DeleteCustomer(id);
 				return Ok(true);
 			}
 			catch (Exception ex)

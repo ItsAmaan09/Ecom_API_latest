@@ -72,3 +72,5 @@ E:\Mohammed Amaan's\Dotnet Projects\WebAPI_Projects\Ecom_api\Ecom_API_latest\API
 E:\Mohammed Amaan's\Dotnet Projects\WebAPI_Projects\Ecom_api\Ecom_API_latest\API\obj\Debug\net8.0\API.pdb
 E:\Mohammed Amaan's\Dotnet Projects\WebAPI_Projects\Ecom_api\Ecom_API_latest\API\obj\Debug\net8.0\API.genruntimeconfig.cache
 E:\Mohammed Amaan's\Dotnet Projects\WebAPI_Projects\Ecom_api\Ecom_API_latest\API\obj\Debug\net8.0\ref\API.dll
+e:\Mohammed Amaan's\Dotnet Projects\WebAPI_Projects\Ecom_api\Ecom_API_latest\API\bin\Debug\net8.0\Manager.dll
+e:\Mohammed Amaan's\Dotnet Projects\WebAPI_Projects\Ecom_api\Ecom_API_latest\API\bin\Debug\net8.0\Manager.pdb

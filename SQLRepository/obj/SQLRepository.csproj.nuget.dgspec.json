@@ -4,14 +4,14 @@
     "e:\\Mohammed Amaan's\\Dotnet Projects\\WebAPI_Projects\\Ecom_api\\Ecom_API_latest\\SQLRepository\\SQLRepository.csproj": {}
   },
   "projects": {
-    "E:\\Mohammed Amaan's\\Dotnet Projects\\WebAPI_Projects\\Ecom_api\\Ecom_API_latest\\DTO\\DTO.csproj": {
+    "e:\\Mohammed Amaan's\\Dotnet Projects\\WebAPI_Projects\\Ecom_api\\Ecom_API_latest\\DTO\\DTO.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Mohammed Amaan's\\Dotnet Projects\\WebAPI_Projects\\Ecom_api\\Ecom_API_latest\\DTO\\DTO.csproj",
+        "projectUniqueName": "e:\\Mohammed Amaan's\\Dotnet Projects\\WebAPI_Projects\\Ecom_api\\Ecom_API_latest\\DTO\\DTO.csproj",
         "projectName": "DTO",
-        "projectPath": "E:\\Mohammed Amaan's\\Dotnet Projects\\WebAPI_Projects\\Ecom_api\\Ecom_API_latest\\DTO\\DTO.csproj",
+        "projectPath": "e:\\Mohammed Amaan's\\Dotnet Projects\\WebAPI_Projects\\Ecom_api\\Ecom_API_latest\\DTO\\DTO.csproj",
         "packagesPath": "C:\\Users\\Amaan\\.nuget\\packages\\",
-        "outputPath": "E:\\Mohammed Amaan's\\Dotnet Projects\\WebAPI_Projects\\Ecom_api\\Ecom_API_latest\\DTO\\obj\\",
+        "outputPath": "e:\\Mohammed Amaan's\\Dotnet Projects\\WebAPI_Projects\\Ecom_api\\Ecom_API_latest\\DTO\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Amaan\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -60,7 +60,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.205/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
@@ -120,7 +120,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.205/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
@@ -148,8 +148,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "E:\\Mohammed Amaan's\\Dotnet Projects\\WebAPI_Projects\\Ecom_api\\Ecom_API_latest\\DTO\\DTO.csproj": {
-                "projectPath": "E:\\Mohammed Amaan's\\Dotnet Projects\\WebAPI_Projects\\Ecom_api\\Ecom_API_latest\\DTO\\DTO.csproj"
+              "e:\\Mohammed Amaan's\\Dotnet Projects\\WebAPI_Projects\\Ecom_api\\Ecom_API_latest\\DTO\\DTO.csproj": {
+                "projectPath": "e:\\Mohammed Amaan's\\Dotnet Projects\\WebAPI_Projects\\Ecom_api\\Ecom_API_latest\\DTO\\DTO.csproj"
               },
               "e:\\Mohammed Amaan's\\Dotnet Projects\\WebAPI_Projects\\Ecom_api\\Ecom_API_latest\\Model\\Model.csproj": {
                 "projectPath": "e:\\Mohammed Amaan's\\Dotnet Projects\\WebAPI_Projects\\Ecom_api\\Ecom_API_latest\\Model\\Model.csproj"
@@ -197,7 +197,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.205/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
