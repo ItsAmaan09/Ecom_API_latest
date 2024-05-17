@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace ECommerce.Core
 {
 	[ApiController]
-	[Route("api/[controller]")]
+	[Route("api/v1/[controller]")]
 	public class CustomerController : ControllerBase
 	{
 		private readonly CustomerManager _customerManager;
