@@ -30,7 +30,7 @@ namespace ECommerce.Core
 		{
 			try
 			{
-				var customer = _customerManager.GetCustomer(id);
+				var customer = _customerManager.GetCustomerById(id);
 				return Ok(customer);
 			}
 			catch (Exception ex)

@@ -21,7 +21,7 @@ public class CustomerManager
 		}
 		return customers;
 	}
-	public IEnumerable<Customer> GetCustomer(int id)
+	public IEnumerable<Customer> GetCustomerById(int id)
 	{
 		IEnumerable<Customer> customer = new List<Customer>();
 		try
@@ -104,7 +104,7 @@ public class CustomerManager
 	}
 	public bool IsCustomerExists(int id)
 	{
-		IEnumerable<Customer> customers = this.GetCustomer(id).Where(x => x.CustomerId == id);
+		IEnumerable<Customer> customers = this.GetCustomerById(id).Where(x => x.CustomerId == id);
 		return customers.Count() == 1;
 	}
 	public bool IsDuplicateCustomer(Customer customer)
