@@ -31,10 +31,6 @@ namespace ECommerce.Core
 			try
 			{
 				var customer = _customerManager.GetCustomer(id);
-				if (customer == null)
-				{
-					return NotFound();
-				}
 				return Ok(customer);
 			}
 			catch (Exception ex)
@@ -44,6 +40,7 @@ namespace ECommerce.Core
 		}
 
 		[HttpPost]
+		[Route("Add")]
 		public IActionResult AddCustomer(Customer customer)
 		{
 			try
@@ -58,7 +55,8 @@ namespace ECommerce.Core
 			}
 		}
 
-		[HttpPut("{id}")]
+		[HttpPost]
+		[Route("Update")]
 
 		public IActionResult UpdateCustomer(Customer customer)
 		{

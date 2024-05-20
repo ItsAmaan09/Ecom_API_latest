@@ -30,7 +30,6 @@ namespace ECommerce.Core
 								Name = reader.GetString(reader.GetOrdinal("Name")),
 								Email = reader.GetString(reader.GetOrdinal("Email")),
 								Address = reader.GetString(reader.GetOrdinal("Address")),
-								IsDeleted = false
 							});
 						}
 					}
@@ -58,7 +57,6 @@ namespace ECommerce.Core
 								Name = reader.GetString(reader.GetOrdinal("Name")),
 								Email = reader.GetString(reader.GetOrdinal("Email")),
 								Address = reader.GetString(reader.GetOrdinal("Address")),
-								IsDeleted = false
 							};
 							customer.Add(customer1);
 						}
@@ -67,6 +65,35 @@ namespace ECommerce.Core
 			}
 			return customer;
 		}
+		public IEnumerable<Customer> GetCustomerByEmail(string Email)
+		{
+			IList<Customer> customers = new List<Customer>();
+			using (var connection = _sqlConnectionFactory.CreateConnection())
+			{
+				var query = "SELECT CustomerId, Name, Email, Address, IsDeleted FROM Customers WHERE Email = @Email AND IsDeleted = 0";
+				using (var command = new SqlCommand(query, connection))
+				{
+					command.Parameters.AddWithValue("@Email", Email);
+					connection.Open();
+					using (var reader = command.ExecuteReader())
+					{
+						while (reader.Read())
+						{
+							Customer customer = new Customer
+							{
+								CustomerId = reader.GetInt32(reader.GetOrdinal("CustomerId")),
+								Name = reader.GetString(reader.GetOrdinal("Name")),
+								Email = reader.GetString(reader.GetOrdinal("Email")),
+								Address = reader.GetString(reader.GetOrdinal("Address")),
+							};
+							customers.Add(customer);
+						}
+					}
+				}
+			}
+			return customers;
+		}
+
 		public int AddCustomer(Customer customer)
 		{
 			try

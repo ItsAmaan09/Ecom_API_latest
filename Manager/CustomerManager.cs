@@ -34,13 +34,26 @@ public class CustomerManager
 		}
 		return customer;
 	}
+	public IEnumerable<Customer> GetCustomerByEmail(string Email)
+	{
+		IEnumerable<Customer> customer = new List<Customer>();
+		try
+		{
+			customer = this._customerRepository.GetCustomerByEmail(Email);
+		}
+		catch (Exception ex)
+		{
+			throw;
+		}
+		return customer;
+	}
 	public int AddCustomer(Customer customer)
 	{
 		try
 		{
-			if (!this.IsCustomerExists(customer.CustomerId))
+			if (this.IsDuplicateCustomer(customer))
 			{
-				throw new Exception("The customer is not exists");
+				throw new Exception("The customer with same email is already exists.");
 			}
 			var id = this._customerRepository.AddCustomer(customer);
 			return id;
@@ -58,6 +71,10 @@ public class CustomerManager
 			if (!this.IsCustomerExists(customer.CustomerId))
 			{
 				throw new Exception("The customer is not exists");
+			}
+			if (this.IsDuplicateCustomer(customer))
+			{
+				throw new Exception("The customer with same email is already exists.");
 			}
 			result = this._customerRepository.UpdateCustomer(customer);
 		}
@@ -89,5 +106,12 @@ public class CustomerManager
 	{
 		IEnumerable<Customer> customers = this.GetCustomer(id).Where(x => x.CustomerId == id);
 		return customers.Count() == 1;
+	}
+	public bool IsDuplicateCustomer(Customer customer)
+	{
+		IEnumerable<Customer> customers = this.GetCustomerByEmail(customer.Email);
+
+		int count = customers.Where(x => x.CustomerId != customer.CustomerId).Count();
+		return count > 0;
 	}
 }
