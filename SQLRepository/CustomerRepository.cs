@@ -26,10 +26,10 @@ namespace ECommerce.Core
 						{
 							customers.Add(new Customer
 							{
-								CustomerId = reader.GetInt32(reader.GetOrdinal("CustomerId")),
-								Name = reader.GetString(reader.GetOrdinal("Name")),
-								Email = reader.GetString(reader.GetOrdinal("Email")),
-								Address = reader.GetString(reader.GetOrdinal("Address")),
+								CustomerId = (int)reader["CustomerId"],
+								Name = (string)reader["Name"],
+								Email = (string)reader["Email"],
+								Address = (string)reader["Address"],
 							});
 						}
 					}
@@ -53,10 +53,10 @@ namespace ECommerce.Core
 						{
 							Customer customer1 = new Customer
 							{
-								CustomerId = reader.GetInt32(reader.GetOrdinal("CustomerId")),
-								Name = reader.GetString(reader.GetOrdinal("Name")),
-								Email = reader.GetString(reader.GetOrdinal("Email")),
-								Address = reader.GetString(reader.GetOrdinal("Address")),
+								CustomerId = (int)reader["CustomerId"],
+								Name = (string)reader["Name"],
+								Email = (string)reader["Email"],
+								Address = (string)reader["Address"],
 							};
 							customer.Add(customer1);
 						}
@@ -81,10 +81,10 @@ namespace ECommerce.Core
 						{
 							Customer customer = new Customer
 							{
-								CustomerId = reader.GetInt32(reader.GetOrdinal("CustomerId")),
-								Name = reader.GetString(reader.GetOrdinal("Name")),
-								Email = reader.GetString(reader.GetOrdinal("Email")),
-								Address = reader.GetString(reader.GetOrdinal("Address")),
+								CustomerId = (int)reader["CustomerId"],
+								Name = (string)reader["Name"],
+								Email = (string)reader["Email"],
+								Address = (string)reader["Address"],
 							};
 							customers.Add(customer);
 						}
