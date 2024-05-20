@@ -8,9 +8,9 @@ public class CustomerManager
 		_customerRepository = customerRepository;
 	}
 
-	public List<Customer> GetCustomers()
+	public IEnumerable<Customer> GetCustomers()
 	{
-		List<Customer> customers = new List<Customer>();
+		IEnumerable<Customer> customers = new List<Customer>();
 		try
 		{
 			customers = this._customerRepository.GetAllCustomers();
@@ -21,9 +21,9 @@ public class CustomerManager
 		}
 		return customers;
 	}
-	public Customer? GetCustomer(int id)
+	public IEnumerable<Customer> GetCustomer(int id)
 	{
-		Customer? customer = new Customer();
+		IEnumerable<Customer> customer = new List<Customer>();
 		try
 		{
 			customer = this._customerRepository.GetCustomerById(id);
@@ -34,17 +34,60 @@ public class CustomerManager
 		}
 		return customer;
 	}
-	public int AddCustomer(CustomerDTO customerDTO)
+	public int AddCustomer(Customer customer)
 	{
-		var id = this._customerRepository.AddCustomer(customerDTO);
-		return id;
+		try
+		{
+			if (!this.IsCustomerExists(customer.CustomerId))
+			{
+				throw new Exception("The customer is not exists");
+			}
+			var id = this._customerRepository.AddCustomer(customer);
+			return id;
+		}
+		catch (Exception ex)
+		{
+			throw;
+		}
 	}
-	public void UpdateCustomer(CustomerDTO customerDTO)
+	public bool UpdateCustomer(Customer customer)
 	{
-		this._customerRepository.UpdateCustomer(customerDTO);
+		bool result = false;
+		try
+		{
+			if (!this.IsCustomerExists(customer.CustomerId))
+			{
+				throw new Exception("The customer is not exists");
+			}
+			result = this._customerRepository.UpdateCustomer(customer);
+		}
+		catch (Exception ex)
+		{
+			throw;
+		}
+		return true;
 	}
-	public void DeleteCustomer(int id)
+	public bool DeleteCustomer(int id)
 	{
-		this._customerRepository.DeleteCustomer(id);
+		bool result = false;
+		try
+		{
+			if (!this.IsCustomerExists(id))
+			{
+				throw new Exception("The customer is not exists");
+
+			}
+			result = this._customerRepository.DeleteCustomer(id);
+		}
+		catch (Exception ex)
+		{
+			throw;
+		}
+		return result;
+	}
+	public bool IsCustomerExists(int id)
+	{
+		IEnumerable<Customer> customers = this.GetCustomer(id).Where(x => x.CustomerId == id);
+		return customers.Count() == 1;
 	}
 }

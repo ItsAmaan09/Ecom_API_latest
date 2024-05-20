@@ -11,9 +11,9 @@ namespace ECommerce.Core
 		{
 			_sqlConnectionFactory = sqlConnectionFactory;
 		}
-		public List<Customer> GetAllCustomers()
+		public IEnumerable<Customer> GetAllCustomers()
 		{
-			var customers = new List<Customer>();
+			IList<Customer> customers = new List<Customer>();
 			var query = "SELECT CustomerId,Name,Email,Address FROM Customers WHERE IsDeleted = 0";
 			using (var connection = _sqlConnectionFactory.CreateConnection())
 			{
@@ -38,21 +38,21 @@ namespace ECommerce.Core
 			}
 			return customers;
 		}
-		public Customer? GetCustomerById(int customerId)
+		public IEnumerable<Customer> GetCustomerById(int customerId)
 		{
-			var query = "SELECT CustomerId, Name, Email, Address FROM Customers WHERE CustomerId = @CustomerId AND IsDeleted = 0";
-			Customer? customer = null;
+			IList<Customer> customer = new List<Customer>();
 			using (var connection = _sqlConnectionFactory.CreateConnection())
 			{
-				connection.Open();
+				var query = "SELECT CustomerId, Name, Email, Address FROM Customers WHERE CustomerId = @CustomerId AND IsDeleted = 0";
 				using (var command = new SqlCommand(query, connection))
 				{
 					command.Parameters.AddWithValue("@CustomerId", customerId);
+					connection.Open();
 					using (var reader = command.ExecuteReader())
 					{
-						if (reader.Read())
+						while (reader.Read())
 						{
-							customer = new Customer
+							Customer customer1 = new Customer
 							{
 								CustomerId = reader.GetInt32(reader.GetOrdinal("CustomerId")),
 								Name = reader.GetString(reader.GetOrdinal("Name")),
@@ -60,62 +60,82 @@ namespace ECommerce.Core
 								Address = reader.GetString(reader.GetOrdinal("Address")),
 								IsDeleted = false
 							};
+							customer.Add(customer1);
 						}
 					}
 				}
 			}
 			return customer;
 		}
-		public int AddCustomer(CustomerDTO customer)
+		public int AddCustomer(Customer customer)
 		{
-			var query = @"INSERT INTO Customers (Name, Email, Address, IsDeleted)
-						VALUES (@Name, @Email, @Address, 0);
-						SELECT CAST(SCOPE_IDENTITY() as int);";
-			using (var connection = _sqlConnectionFactory.CreateConnection())
+			try
 			{
-				connection.Open();
-				using (var command = new SqlCommand(query, connection))
+				using (var connection = _sqlConnectionFactory.CreateConnection())
 				{
-					command.Parameters.AddWithValue("@Name", customer.Name);
-					command.Parameters.AddWithValue("@Email", customer.Email);
-					command.Parameters.AddWithValue("@Address", customer.Address);
-					// ExecuteScalar is used here to return the first column of the first row in the result set
-					int customerId = (int)command.ExecuteScalar();
-					return customerId;
+					var query = @"INSERT INTO Customers (Name, Email, Address, IsDeleted) VALUES (@Name, @Email, @Address, 0); SELECT CAST(SCOPE_IDENTITY() as int);";
+					using (var command = new SqlCommand(query, connection))
+					{
+						command.Parameters.AddWithValue("@Name", customer.Name);
+						command.Parameters.AddWithValue("@Email", customer.Email);
+						command.Parameters.AddWithValue("@Address", customer.Address);
+						// ExecuteScalar is used here to return the first column of the first row in the result set
+						connection.Open();
+						int customerId = (int)command.ExecuteScalar();
+						return customerId;
+					}
 				}
 			}
-		}
-		//Method to Update an Existing Customer
-		public void UpdateCustomer(CustomerDTO customer)
-		{
-			var query = "UPDATE Customers SET Name = @Name, Email = @Email, Address = @Address WHERE CustomerId = @CustomerId";
-			using (var connection = _sqlConnectionFactory.CreateConnection())
+			catch (Exception)
 			{
-				connection.Open();
-				using (var command = new SqlCommand(query, connection))
-				{
-					command.Parameters.AddWithValue("@CustomerId", customer.CustomerId);
-					command.Parameters.AddWithValue("@Name", customer.Name);
-					command.Parameters.AddWithValue("@Email", customer.Email);
-					command.Parameters.AddWithValue("@Address", customer.Address);
-					command.ExecuteNonQuery();
-				}
+				throw;
 			}
 		}
+		public bool UpdateCustomer(Customer customer)
+		{
+			try
+			{
+				using (var connection = _sqlConnectionFactory.CreateConnection())
+				{
+					var query = "UPDATE Customers SET Name = @Name, Email = @Email, Address = @Address WHERE CustomerId = @CustomerId";
+					using (var command = new SqlCommand(query, connection))
+					{
+						command.Parameters.AddWithValue("@CustomerId", customer.CustomerId);
+						command.Parameters.AddWithValue("@Name", customer.Name);
+						command.Parameters.AddWithValue("@Email", customer.Email);
+						command.Parameters.AddWithValue("@Address", customer.Address);
+						connection.Open();
+						int affectedRows = command.ExecuteNonQuery();
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				throw;
+			}
+			return true;
 
-		//Method to Delete an Existing Customer
-		public void DeleteCustomer(int customerId)
+		}
+		public bool DeleteCustomer(int customerId)
 		{
-			var query = "UPDATE Customers SET IsDeleted = 1 WHERE CustomerId = @CustomerId";
-			using (var connection = _sqlConnectionFactory.CreateConnection())
+			try
 			{
-				connection.Open();
-				using (var command = new SqlCommand(query, connection))
+				using (SqlConnection connection = _sqlConnectionFactory.CreateConnection())
 				{
-					command.Parameters.AddWithValue("@CustomerId", customerId);
-					command.ExecuteNonQuery();
+					var query = "UPDATE Customers SET IsDeleted = 1 WHERE CustomerId = @CustomerId";
+					using (var command = new SqlCommand(query, connection))
+					{
+						command.Parameters.AddWithValue("@CustomerId", customerId);
+						connection.Open();
+						int affectedRows = command.ExecuteNonQuery();
+					}
 				}
 			}
+			catch (Exception ex)
+			{
+				throw;
+			}
+			return true;
 		}
 	}
 }

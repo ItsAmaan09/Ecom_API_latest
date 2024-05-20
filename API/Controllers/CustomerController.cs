@@ -44,11 +44,11 @@ namespace ECommerce.Core
 		}
 
 		[HttpPost]
-		public IActionResult AddCustomer(CustomerDTO customerDTO)
+		public IActionResult AddCustomer(Customer customer)
 		{
 			try
 			{
-				var customerId = _customerManager.AddCustomer(customerDTO);
+				var customerId = _customerManager.AddCustomer(customer);
 				var responseDTO = new CustomerResponseDTO { CustomerId = customerId };
 				return Ok(responseDTO);
 			}
@@ -60,16 +60,12 @@ namespace ECommerce.Core
 
 		[HttpPut("{id}")]
 
-		public IActionResult UpdateCustomer(int id, CustomerDTO customerDTO)
+		public IActionResult UpdateCustomer(Customer customer)
 		{
 			try
 			{
-				if (id != customerDTO.CustomerId)
-				{
-					return BadRequest("Id not found");
-				}
-				_customerManager.UpdateCustomer(customerDTO);
-				return Ok(true);
+				var result = _customerManager.UpdateCustomer(customer);
+				return Ok(result);
 			}
 			catch (Exception ex)
 			{
@@ -82,13 +78,8 @@ namespace ECommerce.Core
 		{
 			try
 			{
-				var customer = _customerManager.GetCustomer(id);
-				if (customer == null)
-				{
-					return NotFound();
-				}
-				_customerManager.DeleteCustomer(id);
-				return Ok(true);
+				var result = _customerManager.DeleteCustomer(id);
+				return Ok(result);
 			}
 			catch (Exception ex)
 			{
