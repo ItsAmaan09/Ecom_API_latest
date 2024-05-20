@@ -51,6 +51,11 @@ public class CustomerManager
 	{
 		try
 		{
+			if(!customer.IsValid())
+			{
+				throw new Exception("Customer is not valid.");
+			}
+
 			if (this.IsDuplicateCustomer(customer))
 			{
 				throw new Exception("The customer with same email is already exists.");
@@ -68,10 +73,16 @@ public class CustomerManager
 		bool result = false;
 		try
 		{
+			if(!customer.IsValid())
+			{
+				throw new Exception("Customer is not valid.");
+			}
+
 			if (!this.IsCustomerExists(customer.CustomerId))
 			{
 				throw new Exception("The customer is not exists");
 			}
+
 			if (this.IsDuplicateCustomer(customer))
 			{
 				throw new Exception("The customer with same email is already exists.");

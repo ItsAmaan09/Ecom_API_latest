@@ -1,11 +1,15 @@
 
 namespace ECommerce.Core
 {
-    public class Customer
+	public class Customer
 	{
 		public int CustomerId { get; set; }
-		public string Name { get; set; } = string.Empty;
-		public string Email { get; set; } = string.Empty;
-		public string Address { get; set; } = string.Empty;
+		public string? Name { get; set; }
+		public string? Email { get; set; }
+		public string? Address { get; set; }
+		public bool IsValid()
+		{
+			return !string.IsNullOrEmpty(Email) && !string.IsNullOrEmpty(Name) && !string.IsNullOrEmpty(Address);
+		}
 	}
 }
