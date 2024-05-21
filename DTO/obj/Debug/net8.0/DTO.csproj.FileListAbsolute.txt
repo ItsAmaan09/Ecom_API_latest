@@ -1,0 +1,12 @@
+e:\Mohammed Amaan's\Dotnet Projects\WebAPI_Projects\Ecom_api\Ecom_API_latest\DTO\obj\Debug\net8.0\DTO.GeneratedMSBuildEditorConfig.editorconfig
+e:\Mohammed Amaan's\Dotnet Projects\WebAPI_Projects\Ecom_api\Ecom_API_latest\DTO\obj\Debug\net8.0\DTO.AssemblyInfoInputs.cache
+e:\Mohammed Amaan's\Dotnet Projects\WebAPI_Projects\Ecom_api\Ecom_API_latest\DTO\obj\Debug\net8.0\DTO.AssemblyInfo.cs
+e:\Mohammed Amaan's\Dotnet Projects\WebAPI_Projects\Ecom_api\Ecom_API_latest\DTO\obj\Debug\net8.0\DTO.csproj.CoreCompileInputs.cache
+e:\Mohammed Amaan's\Dotnet Projects\WebAPI_Projects\Ecom_api\Ecom_API_latest\DTO\obj\Debug\net8.0\DTO.sourcelink.json
+E:\Mohammed Amaan's\Dotnet Projects\WebAPI_Projects\Ecom_api\Ecom_API_latest\DTO\bin\Debug\net8.0\DTO.deps.json
+E:\Mohammed Amaan's\Dotnet Projects\WebAPI_Projects\Ecom_api\Ecom_API_latest\DTO\bin\Debug\net8.0\DTO.dll
+E:\Mohammed Amaan's\Dotnet Projects\WebAPI_Projects\Ecom_api\Ecom_API_latest\DTO\bin\Debug\net8.0\DTO.pdb
+E:\Mohammed Amaan's\Dotnet Projects\WebAPI_Projects\Ecom_api\Ecom_API_latest\DTO\obj\Debug\net8.0\DTO.dll
+E:\Mohammed Amaan's\Dotnet Projects\WebAPI_Projects\Ecom_api\Ecom_API_latest\DTO\obj\Debug\net8.0\refint\DTO.dll
+E:\Mohammed Amaan's\Dotnet Projects\WebAPI_Projects\Ecom_api\Ecom_API_latest\DTO\obj\Debug\net8.0\DTO.pdb
+E:\Mohammed Amaan's\Dotnet Projects\WebAPI_Projects\Ecom_api\Ecom_API_latest\DTO\obj\Debug\net8.0\ref\DTO.dll
