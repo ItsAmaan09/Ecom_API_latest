@@ -49,6 +49,34 @@ namespace ECommerce.Core
 			}
 			return orders;
 		}
+		public IEnumerable<Order> GetOrderDetails(int orderId)
+		{
+			IList<Order> orders = new List<Order>();
+			var query = "SELECT OrderId,CustomerId,TotalAmount,Status,OrderDate FROM Orders WHERE OrderId = @OrderId";
+			using (SqlConnection sqlConnection = _sqlConnectionFactory.CreateConnection())
+			{
+				sqlConnection.Open();
+				using (SqlCommand sqlCommand = new SqlCommand(query, sqlConnection))
+				{
+					sqlCommand.Parameters.AddWithValue("@OrderId", orderId);
+					using (SqlDataReader reader = sqlCommand.ExecuteReader())
+					{
+						while (reader.Read())
+						{
+							orders.Add(new Order
+							{
+								OrderId = (int)reader["OrderId"],
+								CustomerId = (int)reader["CustomerId"],
+								TotalAmount = (decimal)reader["TotalAmount"],
+								Status = (string)reader["Status"],
+								OrderDate = (DateTime)reader["OrderDate"]
+							});
+						}
+					}
+				}
+			}
+			return orders;
+		}
 		public CreateOrderResponseDTO CreateOrder(OrderDTO orderDTO)
 		{
 			var productQuery = "SELECT ProductId, Price, Quantity FROM Products WHERE ProductId = @ProductId AND IsDeleted = 0";
@@ -141,6 +169,196 @@ namespace ECommerce.Core
 					}
 				}
 			}
+		}
+		public ConfirmOrderResponseDTO ConfirmOrder(int orderId)
+		{
+			// Queries to fetch order and payment details
+			var orderDetailsQuery = "SELECT TotalAmount FROM Orders WHERE OrderId = @OrderId";
+			var paymentDetailsQuery = "SELECT Amount, Status FROM Payments WHERE OrderId = @OrderId";
+			var updateOrderStatusQuery = "UPDATE Orders SET Status = 'Confirmed' WHERE OrderId = @OrderId";
+			var getOrderItemQuery = "SELECT ProductId, Quantity FROM OrderItems WHERE OrderId = @OrderId";
+			var updateProductQuery = "UPDATE Product SET Quantity = Quantity - @Quantity WHERE ProductId = @ProductId";
+
+			ConfirmOrderResponseDTO confirmOrderResponseDTO = new ConfirmOrderResponseDTO()
+			{
+				OrderId = orderId
+			};
+
+			using (SqlConnection sqlConnection = _sqlConnectionFactory.CreateConnection())
+			{
+				sqlConnection.Open();
+
+				using (SqlTransaction sqlTransaction = sqlConnection.BeginTransaction())
+				{
+					try
+					{
+						decimal orderAmount = 0;
+						decimal paymentAmount = 0;
+						string paymentStatus = string.Empty;
+
+						using (SqlCommand orderCommand = new SqlCommand(orderDetailsQuery, sqlConnection, sqlTransaction))
+						{
+							orderCommand.Parameters.AddWithValue("@OrderId", orderId);
+							using (SqlDataReader reader = orderCommand.ExecuteReader())
+							{
+								if (reader.Read())
+								{
+									orderAmount = (decimal)reader["TotalAmount"];
+								}
+								reader.Close();
+							}
+						}
+						using (SqlCommand paymentCommand = new SqlCommand(paymentDetailsQuery, sqlConnection, sqlTransaction))
+						{
+							paymentCommand.Parameters.AddWithValue("@OrderId", orderId);
+							using (SqlDataReader reader = paymentCommand.ExecuteReader())
+							{
+								if (reader.Read())
+								{
+									paymentAmount = (decimal)reader["Amount"];
+									paymentStatus = (string)reader["Status"];
+								}
+								reader.Close();
+							}
+						}
+						// Check if payment is complete and matches the order total
+						if (paymentStatus == "Completed" && paymentAmount == orderAmount)
+						{
+							using (SqlCommand itemCommand = new SqlCommand(getOrderItemQuery, sqlConnection, sqlTransaction))
+							{
+								itemCommand.Parameters.AddWithValue("@OrderId", orderId);
+
+								using (SqlDataReader reader = itemCommand.ExecuteReader())
+								{
+									while (reader.Read())
+									{
+										int productId = (int)reader["ProductId"];
+										int quantity = (int)reader["Quantity"];
+
+										using (SqlCommand updateProductCommand = new SqlCommand(updateProductQuery, sqlConnection, sqlTransaction))
+										{
+											updateProductCommand.Parameters.AddWithValue("@ProductId", productId);
+											updateProductCommand.Parameters.AddWithValue("@Quantity", quantity);
+											updateProductCommand.ExecuteNonQuery();
+										}
+									}
+									reader.Close();
+								}
+							}
+							// Update order status to 'Confirmed'
+
+							using (SqlCommand statusCommand = new SqlCommand(updateOrderStatusQuery, sqlConnection, sqlTransaction))
+							{
+								statusCommand.Parameters.AddWithValue("@OrderId", orderId);
+								statusCommand.ExecuteNonQuery();
+							}
+							sqlTransaction.Commit();
+							confirmOrderResponseDTO.IsConfirmed = true;
+							confirmOrderResponseDTO.Message = "Order Confirmed Successfully";
+							return confirmOrderResponseDTO;
+						}
+						else
+						{
+							sqlTransaction.Rollback();
+							confirmOrderResponseDTO.IsConfirmed = false;
+							confirmOrderResponseDTO.Message = "Cannot Confirm Order: Payment is either incomplete or does not match the order total.";
+							return confirmOrderResponseDTO;
+						}
+					}
+					catch (System.Exception ex)
+					{
+						sqlTransaction.Rollback();
+						throw new Exception("error confirm order" + ex.Message);
+					}
+				}
+			}
+		}
+
+		// Update the order status with conditions
+		// An order cannot move directly from "Pending" to "Delivered".
+		// An order can only be set to "Cancelled" if it is currently "Pending".
+		// An order can be marked as "Processing" only if it's currently "Confirmed"
+		public OrderStatusResponseDTO UpdateOrderStatus(int orderId, string newStatus)
+		{
+			OrderStatusResponseDTO orderStatusResponseDTO = new OrderStatusResponseDTO()
+			{
+				OrderId = orderId
+			};
+
+			using (SqlConnection sqlConnection = _sqlConnectionFactory.CreateConnection())
+			{
+				sqlConnection.Open();
+				try
+				{
+					var currentStatusQuery = "SELECT Status FROM Orders WHERE OrderId = @OrderId";
+					string currentStatus;
+					using (SqlCommand statusCommand = new SqlCommand(currentStatusQuery, sqlConnection))
+					{
+						statusCommand.Parameters.AddWithValue("@OrderId", orderId);
+						var result = statusCommand.ExecuteScalar();
+						if (result == null)
+						{
+							orderStatusResponseDTO.Message = "Order not found";
+							orderStatusResponseDTO.IsUpdated = false;
+							return orderStatusResponseDTO;
+						}
+						currentStatus = result.ToString();
+					}
+
+					if (!IsValidStatusTransaction(currentStatus, newStatus))
+					{
+						orderStatusResponseDTO.Message = $"Invalid status transition from {currentStatus} to {newStatus}";
+						orderStatusResponseDTO.IsUpdated = false;
+						return orderStatusResponseDTO;
+					}
+
+					// Update if valid
+					var updateStatusQuery = "UPDATE Orders SET Status = @NewStatus WHERE OrderId = @OrderId";
+					using (SqlCommand updateCommand = new SqlCommand(updateStatusQuery, sqlConnection))
+					{
+						updateCommand.Parameters.AddWithValue("@OrderId", orderId);
+						updateCommand.Parameters.AddWithValue("@NewStatus", newStatus);
+
+						int rowAffected = updateCommand.ExecuteNonQuery();
+						if (rowAffected > 0)
+						{
+							orderStatusResponseDTO.Message = $"Order Status updated to {newStatus}";
+							orderStatusResponseDTO.Status = newStatus;
+							orderStatusResponseDTO.IsUpdated = true;
+						}
+						else
+						{
+							orderStatusResponseDTO.Message = $"No order found with id {orderId}";
+							orderStatusResponseDTO.IsUpdated = false;
+						}
+					}
+					return orderStatusResponseDTO;
+				}
+				catch (System.Exception ex)
+				{
+					throw new Exception("Error updating order status: " + ex.Message, ex);
+				}
+			}
+		}
+		private bool IsValidStatusTransaction(string currentStatus, string newStatus)
+		{
+			switch (currentStatus)
+			{
+				case "Pending":
+					return newStatus == "Processing" || newStatus == "Cancelled";
+				case "Confirmed":
+					return newStatus == "Processing";
+				case "Processing":
+					return newStatus == "Delivered";
+				case "Delivered":
+					return false;
+				case "Cancelled":
+					return false;
+
+				default:
+					return false;
+			}
+
 		}
 	}
 }

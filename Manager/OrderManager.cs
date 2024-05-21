@@ -21,7 +21,20 @@ namespace ECommerce.Core
 			}
 			return orders;
 		}
+		public IEnumerable<Order> GetOrderDetails(int orderId)
+		{
+			IEnumerable<Order> orders = new List<Order>();
+			try
+			{
+				orders = _orderRepository.GetOrderDetails(orderId);
+			}
+			catch (System.Exception)
+			{
 
+				throw;
+			}
+			return orders;
+		}
 		public CreateOrderResponseDTO CreateOrder(OrderDTO orderDTO)
 		{
 			CreateOrderResponseDTO createOrderResponseDTO = new CreateOrderResponseDTO();
@@ -35,5 +48,20 @@ namespace ECommerce.Core
 			}
 			return createOrderResponseDTO;
 		}
+		public ConfirmOrderResponseDTO ConfirmOrder(int orderId)
+		{
+			ConfirmOrderResponseDTO confirmOrderResponseDTO = new ConfirmOrderResponseDTO();
+			try
+			{
+				confirmOrderResponseDTO = _orderRepository.ConfirmOrder(orderId);
+			}
+			catch (System.Exception)
+			{
+
+				throw;
+			}
+			return confirmOrderResponseDTO;
+		}
+
 	}
 }

@@ -30,6 +30,19 @@ namespace API.Controllers
 				return BadRequest(ex.Message);
 			}
 		}
+		[HttpGet("{id}")]
+		public IActionResult GetOrderDetails(int id)
+		{
+			try
+			{
+				var order = _orderManager.GetOrderDetails(id);
+				return Ok(order);
+			}
+			catch (System.Exception ex)
+			{
+				return BadRequest(ex.Message);
+			}
+		}
 		[HttpPost]
 		[Route("Create")]
 		public IActionResult CreateOrder(OrderDTO orderDTO)
