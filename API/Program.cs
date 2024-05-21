@@ -15,8 +15,10 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddTransient<SqlConnectionFactory>();
 builder.Services.AddSingleton<CustomerRepository>();
 builder.Services.AddSingleton<ProductRepository>();
+builder.Services.AddSingleton<OrderRepository>();
 builder.Services.AddScoped<CustomerManager>(); // Register CustomerManager
 builder.Services.AddScoped<ProductManager>();
+builder.Services.AddScoped<OrderManager>();
 
 var app = builder.Build();
 
