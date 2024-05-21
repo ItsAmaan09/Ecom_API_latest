@@ -10,7 +10,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddTransient<SqlConnectionFactory>();
 builder.Services.AddSingleton<CustomerRepository>();
+builder.Services.AddSingleton<ProductRepository>();
 builder.Services.AddScoped<CustomerManager>(); // Register CustomerManager
+builder.Services.AddScoped<ProductManager>();
 
 var app = builder.Build();
 
