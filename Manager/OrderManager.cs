@@ -62,6 +62,20 @@ namespace ECommerce.Core
 			}
 			return confirmOrderResponseDTO;
 		}
+		public OrderStatusResponseDTO UpdateOrderStatus(int orderId, string status)
+		{
+			OrderStatusResponseDTO orderStatusResponseDTO = new OrderStatusResponseDTO();
+			try
+			{
+				orderStatusResponseDTO = _orderRepository.UpdateOrderStatus(orderId, status);
+			}
+			catch (System.Exception)
+			{
+
+				throw;
+			}
+			return orderStatusResponseDTO;
+		}
 
 	}
 }
