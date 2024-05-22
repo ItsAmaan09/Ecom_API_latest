@@ -1,5 +1,6 @@
 using ECommerce.Core;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -13,12 +14,17 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddTransient<SqlConnectionFactory>();
-builder.Services.AddSingleton<CustomerRepository>();
-builder.Services.AddSingleton<ProductRepository>();
-builder.Services.AddSingleton<OrderRepository>();
-builder.Services.AddScoped<CustomerManager>(); // Register CustomerManager
+// Registering the repos----
+builder.Services.AddScoped<CustomerRepository>();
+builder.Services.AddScoped<ProductRepository>();
+builder.Services.AddScoped<OrderRepository>();
+builder.Services.AddScoped<PaymentRepository>();
+
+// Register the manager----
+builder.Services.AddScoped<CustomerManager>();
 builder.Services.AddScoped<ProductManager>();
 builder.Services.AddScoped<OrderManager>();
+builder.Services.AddScoped<PaymentManager>();
 
 var app = builder.Build();
 
