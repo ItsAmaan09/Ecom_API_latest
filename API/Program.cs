@@ -1,8 +1,15 @@
 using ECommerce.Core;
 
-
+var  MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 var builder = WebApplication.CreateBuilder(args);
-
+// cors setup:-
+builder.Services.AddCors(options =>
+{
+	options.AddPolicy(name: MyAllowSpecificOrigins, policy =>
+	{
+		policy.WithOrigins("http://localhost:4200");
+	});
+});
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -36,6 +43,10 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseRouting();
+
+app.UseCors(MyAllowSpecificOrigins);
 
 app.UseAuthorization();
 
