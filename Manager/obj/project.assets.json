@@ -2087,11 +2087,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\Mohammed Amaan's\\Dotnet Projects\\WebAPI_Projects\\Ecom_api\\Ecom_API_latest\\Manager\\Manager.csproj",
+      "projectUniqueName": "e:\\Mohammed Amaan's\\Dotnet Projects\\WebAPI_Projects\\Ecom_api\\Ecom_API_latest\\Manager\\Manager.csproj",
       "projectName": "Manager",
-      "projectPath": "E:\\Mohammed Amaan's\\Dotnet Projects\\WebAPI_Projects\\Ecom_api\\Ecom_API_latest\\Manager\\Manager.csproj",
+      "projectPath": "e:\\Mohammed Amaan's\\Dotnet Projects\\WebAPI_Projects\\Ecom_api\\Ecom_API_latest\\Manager\\Manager.csproj",
       "packagesPath": "C:\\Users\\Amaan\\.nuget\\packages\\",
-      "outputPath": "E:\\Mohammed Amaan's\\Dotnet Projects\\WebAPI_Projects\\Ecom_api\\Ecom_API_latest\\Manager\\obj\\",
+      "outputPath": "e:\\Mohammed Amaan's\\Dotnet Projects\\WebAPI_Projects\\Ecom_api\\Ecom_API_latest\\Manager\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Amaan\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -2108,11 +2108,11 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "E:\\Mohammed Amaan's\\Dotnet Projects\\WebAPI_Projects\\Ecom_api\\Ecom_API_latest\\Model\\Model.csproj": {
-              "projectPath": "E:\\Mohammed Amaan's\\Dotnet Projects\\WebAPI_Projects\\Ecom_api\\Ecom_API_latest\\Model\\Model.csproj"
+            "e:\\Mohammed Amaan's\\Dotnet Projects\\WebAPI_Projects\\Ecom_api\\Ecom_API_latest\\Model\\Model.csproj": {
+              "projectPath": "e:\\Mohammed Amaan's\\Dotnet Projects\\WebAPI_Projects\\Ecom_api\\Ecom_API_latest\\Model\\Model.csproj"
             },
-            "E:\\Mohammed Amaan's\\Dotnet Projects\\WebAPI_Projects\\Ecom_api\\Ecom_API_latest\\SQLRepository\\SQLRepository.csproj": {
-              "projectPath": "E:\\Mohammed Amaan's\\Dotnet Projects\\WebAPI_Projects\\Ecom_api\\Ecom_API_latest\\SQLRepository\\SQLRepository.csproj"
+            "e:\\Mohammed Amaan's\\Dotnet Projects\\WebAPI_Projects\\Ecom_api\\Ecom_API_latest\\SQLRepository\\SQLRepository.csproj": {
+              "projectPath": "e:\\Mohammed Amaan's\\Dotnet Projects\\WebAPI_Projects\\Ecom_api\\Ecom_API_latest\\SQLRepository\\SQLRepository.csproj"
             }
           }
         }

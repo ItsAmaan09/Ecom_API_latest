@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace DTO
+namespace ECommerce.Core
 {
 	public class UpdatePaymentResponseDTO
 	{

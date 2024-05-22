@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Cevc6ybI5G+B8S6VVR/6nU0LZ1xuxMUnAUPdMe8AYmKQqoIVXv9zFPoT2Dez/IAy+sXWcw5u8kqHWE1M4SyJFA==",
+  "dgSpecHash": "8t/S+uB8CjN8QEdcS5Gf85n9AwNLiXbIM8fE6c6ld16gIAPcPj/zyFvpDFW3n9yET5RKoq/JuB4ix35ZBoTwgg==",
   "success": true,
-  "projectFilePath": "E:\\Mohammed Amaan's\\Dotnet Projects\\WebAPI_Projects\\Ecom_api\\Ecom_API_latest\\API\\API.csproj",
+  "projectFilePath": "e:\\Mohammed Amaan's\\Dotnet Projects\\WebAPI_Projects\\Ecom_api\\Ecom_API_latest\\API\\API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Amaan\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\Amaan\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",
