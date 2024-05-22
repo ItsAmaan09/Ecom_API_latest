@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <!--
+    Globalization Invariant Mode is a feature that is typically used in
+    .NET applications to reduce the deployment size by not including
+    culture-specific data. This mode can be especially useful in
+    environments where resources are constrained or where deployment
+     size is a critical factor, such as Docker containers or microservices.
+      When this mode is enabled, the application treats all cultures like the
+      invariant culture (en-US-POSIX-like behavior). So, open the Project Properties
+       file and set the InvariantGlobalization to false as follows: -->
+    <InvariantGlobalization>false</InvariantGlobalization>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SQLRepository\SQLRepository.csproj" />
+    <ProjectReference Include="..\Manager\Manager.csproj" />
+  </ItemGroup>
+
+</Project>
