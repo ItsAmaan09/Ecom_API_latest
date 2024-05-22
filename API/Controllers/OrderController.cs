@@ -60,7 +60,7 @@ namespace ECommerce.Core
 		}
 
 		[HttpPost]
-		[Route("{id}/Confirm")]
+		[Route("Confirm/{id}")]
 		public IActionResult ConfirmOrder(int id)
 		{
 			try
@@ -75,7 +75,7 @@ namespace ECommerce.Core
 		}
 
 		[HttpPost]
-		[Route("{id}/status")]
+		[Route("UpdateStatus/{id}")]
 		public IActionResult UpdateOrderStatus(int id, OrderStatusDTO orderStatusDTO)
 		{
 			try

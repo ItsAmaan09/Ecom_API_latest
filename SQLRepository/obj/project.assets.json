@@ -2089,8 +2089,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "E:\\Mohammed Amaan's\\Dotnet Projects\\WebAPI_Projects\\Ecom_api\\Ecom_API_latest\\DTO\\DTO.csproj": {
-              "projectPath": "E:\\Mohammed Amaan's\\Dotnet Projects\\WebAPI_Projects\\Ecom_api\\Ecom_API_latest\\DTO\\DTO.csproj"
+            "e:\\Mohammed Amaan's\\Dotnet Projects\\WebAPI_Projects\\Ecom_api\\Ecom_API_latest\\DTO\\DTO.csproj": {
+              "projectPath": "e:\\Mohammed Amaan's\\Dotnet Projects\\WebAPI_Projects\\Ecom_api\\Ecom_API_latest\\DTO\\DTO.csproj"
             },
             "e:\\Mohammed Amaan's\\Dotnet Projects\\WebAPI_Projects\\Ecom_api\\Ecom_API_latest\\Model\\Model.csproj": {
               "projectPath": "e:\\Mohammed Amaan's\\Dotnet Projects\\WebAPI_Projects\\Ecom_api\\Ecom_API_latest\\Model\\Model.csproj"

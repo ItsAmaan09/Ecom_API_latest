@@ -177,7 +177,7 @@ namespace ECommerce.Core
 			var paymentDetailsQuery = "SELECT Amount, Status FROM Payments WHERE OrderId = @OrderId";
 			var updateOrderStatusQuery = "UPDATE Orders SET Status = 'Confirmed' WHERE OrderId = @OrderId";
 			var getOrderItemQuery = "SELECT ProductId, Quantity FROM OrderItems WHERE OrderId = @OrderId";
-			var updateProductQuery = "UPDATE Product SET Quantity = Quantity - @Quantity WHERE ProductId = @ProductId";
+			var updateProductQuery = "UPDATE Products SET Quantity = Quantity - @Quantity WHERE ProductId = @ProductId";
 
 			ConfirmOrderResponseDTO confirmOrderResponseDTO = new ConfirmOrderResponseDTO()
 			{
@@ -205,7 +205,7 @@ namespace ECommerce.Core
 								{
 									orderAmount = (decimal)reader["TotalAmount"];
 								}
-								reader.Close();
+								// reader.Close();
 							}
 						}
 						using (SqlCommand paymentCommand = new SqlCommand(paymentDetailsQuery, sqlConnection, sqlTransaction))
@@ -218,12 +218,14 @@ namespace ECommerce.Core
 									paymentAmount = (decimal)reader["Amount"];
 									paymentStatus = (string)reader["Status"];
 								}
-								reader.Close();
+								// reader.Close();
 							}
 						}
 						// Check if payment is complete and matches the order total
 						if (paymentStatus == "Completed" && paymentAmount == orderAmount)
 						{
+							List<(int ProductId, int Quantity)> orderItems = new List<(int ProductId, int Quantity)>(); //
+
 							using (SqlCommand itemCommand = new SqlCommand(getOrderItemQuery, sqlConnection, sqlTransaction))
 							{
 								itemCommand.Parameters.AddWithValue("@OrderId", orderId);
@@ -234,17 +236,30 @@ namespace ECommerce.Core
 									{
 										int productId = (int)reader["ProductId"];
 										int quantity = (int)reader["Quantity"];
+										orderItems.Add((productId, quantity));
 
-										using (SqlCommand updateProductCommand = new SqlCommand(updateProductQuery, sqlConnection, sqlTransaction))
-										{
-											updateProductCommand.Parameters.AddWithValue("@ProductId", productId);
-											updateProductCommand.Parameters.AddWithValue("@Quantity", quantity);
-											updateProductCommand.ExecuteNonQuery();
-										}
+										// using (SqlCommand updateProductCommand = new SqlCommand(updateProductQuery, sqlConnection, sqlTransaction))
+										// {
+										// 	updateProductCommand.Parameters.AddWithValue("@ProductId", productId);
+										// 	updateProductCommand.Parameters.AddWithValue("@Quantity", quantity);
+										// 	updateProductCommand.ExecuteNonQuery();  // error for reader
+										// }
 									}
-									reader.Close();
+									// reader.Close();
 								}
 							}
+							//
+							// Updating product quantities
+							foreach (var item in orderItems)
+							{
+								using (SqlCommand updateProductCommand = new SqlCommand(updateProductQuery, sqlConnection, sqlTransaction))
+								{
+									updateProductCommand.Parameters.AddWithValue("@ProductId", item.ProductId);
+									updateProductCommand.Parameters.AddWithValue("@Quantity", item.Quantity);
+									updateProductCommand.ExecuteNonQuery();
+								}
+							}
+							//
 							// Update order status to 'Confirmed'
 
 							using (SqlCommand statusCommand = new SqlCommand(updateOrderStatusQuery, sqlConnection, sqlTransaction))
